@@ -1,6 +1,6 @@
 package com.giyong.cdnloganalytics;
 
-import com.giyong.cdnloganalytics.collector.DirectoryWatcher;
+import com.giyong.cdnloganalytics.watcher.DirectoryWatcher;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
