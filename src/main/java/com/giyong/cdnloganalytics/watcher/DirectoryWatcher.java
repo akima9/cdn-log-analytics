@@ -1,9 +1,7 @@
 package com.giyong.cdnloganalytics.watcher;
 
 import com.giyong.cdnloganalytics.common.CdnProvider;
-import com.giyong.cdnloganalytics.processor.LogFileProcessor;
 import com.giyong.cdnloganalytics.reader.LogReader;
-import com.giyong.cdnloganalytics.service.LogIngestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
