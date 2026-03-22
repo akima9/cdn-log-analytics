@@ -12,7 +12,12 @@ public class LogParserFactory {
     private final Map<String, LogParser> parserMap;
 
     public LogParser getParser(CdnProvider cdnProvider) {
-        System.out.println("parserMap = " + parserMap);
-        return parserMap.get(cdnProvider.name());
+        LogParser logParser = parserMap.get(cdnProvider.name());
+
+        if (logParser == null) {
+            throw new IllegalArgumentException("Unsupported provider: " + cdnProvider);
+        }
+
+        return logParser;
     }
 }

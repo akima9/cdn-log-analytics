@@ -8,7 +8,6 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.Map;
 
 //TODO: split()은 성능 문제가 있을 수 있음. history 참고.
@@ -18,29 +17,16 @@ public class AwsLogParser implements LogParser {
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
                     .withZone(ZoneOffset.UTC);
 
-    private Map<String, Integer> fieldIndex = new HashMap<>();
-
     private Instant parseDateTime(String date, String time) {
         LocalDateTime localDateTime = LocalDateTime.parse(date + " " + time, FORMATTER);
         return localDateTime.toInstant(ZoneOffset.UTC);
     }
 
-    public ParsedLog parse(String line, CdnProvider cdnProvider) {
-        // Fields 라인 처리
-        if (line.startsWith("#Fields:")) {
-            parseFields(line);
-            return null;
-        }
-
-        // 기타 메타라인 skip
-        if (line.startsWith("#")) {
-            return null;
-        }
-
-        if (fieldIndex.isEmpty()) {
-            System.out.println("Fields not initialized yet.");
-            return null;
-        }
+    public ParsedLog parse(String line, Map<String, Integer> fieldIndex) {
+//        // 기타 메타라인 skip
+//        if (line.startsWith("#")) {
+//            return null;
+//        }
 
         String[] parts = line.split("\t");
 
@@ -80,7 +66,7 @@ public class AwsLogParser implements LogParser {
             Instant requestTime = parseDateTime(date, time);
 
             return ParsedLog.builder()
-                    .cdnProvider(cdnProvider)
+                    .cdnProvider(getProvider())
                     .requestTime(requestTime)
                     .channelId(channelId)
                     .programId(programId)
@@ -91,22 +77,13 @@ public class AwsLogParser implements LogParser {
                     .build();
 
         } catch (Exception e) {
-            System.out.println("Failed to parse log line: " + line);
-            return null;
+            throw new IllegalArgumentException("Invalid log: " + line, e);
         }
     }
 
-    private void parseFields(String line) {
-
-        fieldIndex.clear();
-
-        String fieldsPart = line.replace("#Fields: ", "");
-        String[] fields = fieldsPart.split(" ");
-
-        for (int i = 0; i < fields.length; i++) {
-            fieldIndex.put(fields[i], i);
-        }
-
-        System.out.println("Fields initialized: " + fieldIndex);
+    @Override
+    public CdnProvider getProvider() {
+        return CdnProvider.AWS;
     }
+
 }

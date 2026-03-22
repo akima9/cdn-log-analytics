@@ -3,10 +3,12 @@ package com.giyong.cdnloganalytics.watcher;
 import com.giyong.cdnloganalytics.common.CdnProvider;
 import com.giyong.cdnloganalytics.reader.LogReader;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.nio.file.*;
 
+@Profile("!test")
 @Component
 @RequiredArgsConstructor
 public class DirectoryWatcher {

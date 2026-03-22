@@ -20,8 +20,8 @@ public class LogIngestService {
         //1. 로그 파싱 후 DTO에 담기
         LogParser logParser = logParserFactory.getParser(cdnProvider);
         System.out.println("logParser = " + logParser);
-        ParsedLog parsedLog = logParser.parse(line, cdnProvider);
-        System.out.println("parsedLog = " + parsedLog);
+//        ParsedLog parsedLog = logParser.parse(line);
+//        System.out.println("parsedLog = " + parsedLog);
         //2. DTO를 버퍼에 모으기
         //3. 버퍼에 모은 데이터 DB에 저장하기
     }

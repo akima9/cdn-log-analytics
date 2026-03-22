@@ -2,10 +2,12 @@ package com.giyong.cdnloganalytics.dto;
 
 import com.giyong.cdnloganalytics.common.CdnProvider;
 import lombok.Builder;
+import lombok.Getter;
 
 import java.time.Instant;
 import java.util.Date;
 
+@Getter
 @Builder
 public class ParsedLog {
     private CdnProvider cdnProvider;
