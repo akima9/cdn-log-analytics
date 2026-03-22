@@ -1,13 +1,10 @@
 package com.giyong.cdnloganalytics.service;
 
 import com.giyong.cdnloganalytics.common.CdnProvider;
-import com.giyong.cdnloganalytics.dto.ParsedLog;
 import com.giyong.cdnloganalytics.parser.LogParser;
 import com.giyong.cdnloganalytics.parser.LogParserFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor

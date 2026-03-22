@@ -2,8 +2,6 @@ package com.giyong.cdnloganalytics.parser;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class AwsLogParserTest extends LogParserTest{
 
     @Override
