@@ -49,8 +49,6 @@ abstract class LogParserTest {
     void should_throw_exception_for_invalid_log() {
         LogParser logParser = createLogParser();
 
-        assertThrows(Exception.class, () -> {
-            logParser.parse("invalid log");
-        });
+        assertThrows(Exception.class, () -> logParser.parse("invalid log"));
     }
 }
