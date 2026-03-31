@@ -6,7 +6,7 @@ import com.giyong.cdnloganalytics.dto.ParsedLog;
 import java.util.Map;
 
 public interface LogParser {
-    ParsedLog parse(String line, Map<String, Integer> fieldIndex);
+    ParsedLog parse(String line);
 
     CdnProvider getProvider();
 }

@@ -8,11 +8,13 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.Map;
 
-//TODO: split()은 성능 문제가 있을 수 있음. history 참고.
 @Component("AWS")
 public class AwsLogParser implements LogParser {
+    private final Map<String, Integer> fieldIndex = new HashMap<>();
+
     private static final DateTimeFormatter FORMATTER =
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
                     .withZone(ZoneOffset.UTC);
@@ -22,11 +24,12 @@ public class AwsLogParser implements LogParser {
         return localDateTime.toInstant(ZoneOffset.UTC);
     }
 
-    public ParsedLog parse(String line, Map<String, Integer> fieldIndex) {
-//        // 기타 메타라인 skip
-//        if (line.startsWith("#")) {
-//            return null;
-//        }
+    public ParsedLog parse(String line) {
+
+        if (line.startsWith("#Fields:")) {
+            createFieldIndex(line);
+            return null;
+        }
 
         String[] parts = line.split("\t");
 
@@ -78,6 +81,13 @@ public class AwsLogParser implements LogParser {
 
         } catch (Exception e) {
             throw new IllegalArgumentException("Invalid log: " + line, e);
+        }
+    }
+
+    private void createFieldIndex(String line) {
+        String[] fields = line.replace("#Fields: ", "").split(" ");
+        for (int i = 0; i < fields.length; i++) {
+            fieldIndex.put(fields[i], i);
         }
     }
 

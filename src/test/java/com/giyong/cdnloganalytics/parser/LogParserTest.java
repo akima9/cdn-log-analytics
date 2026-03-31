@@ -10,15 +10,28 @@ import static org.junit.jupiter.api.Assertions.*;
 abstract class LogParserTest {
     protected abstract LogParser createLogParser();
     protected abstract String validLogLine();
-    protected abstract Map<String, Integer> fieldIndex();
+    protected abstract String validFieldLine();
+
+    @Test
+    void should_return_null_when_field() {
+        //given
+        LogParser logParser = createLogParser();
+
+        //when
+        ParsedLog parsedLog = logParser.parse(validFieldLine());
+
+        //then
+        assertNull(parsedLog);
+    }
 
     @Test
     void should_parse_valid_log() {
         //given
         LogParser logParser = createLogParser();
+        logParser.parse(validFieldLine());
 
         //when
-        ParsedLog parsedLog = logParser.parse(validLogLine(), fieldIndex());
+        ParsedLog parsedLog = logParser.parse(validLogLine());
 
         //then
         assertAll(
@@ -39,7 +52,7 @@ abstract class LogParserTest {
         LogParser logParser = createLogParser();
 
         assertThrows(Exception.class, () -> {
-            logParser.parse("invalid log", fieldIndex());
+            logParser.parse("invalid log");
         });
     }
 }

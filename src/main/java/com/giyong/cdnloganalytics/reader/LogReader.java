@@ -21,7 +21,7 @@ public class LogReader {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 //2. LogIngestService.process 호출
-                logIngestService.process(line, cdnProvider);
+//                logIngestService.process(line, cdnProvider);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
