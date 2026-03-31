@@ -43,8 +43,8 @@ public class AwsLogParser implements LogParser {
             int status = Integer.parseInt(parts[fieldIndex.get("sc-status")]);
             String query = parts[fieldIndex.get("cs-uri-query")];
 
-            Long channelId = 0L;
-            Long programId = 0L;
+            long channelId = 0L;
+            long programId = 0L;
 
             if (!query.equals("-")) {
 

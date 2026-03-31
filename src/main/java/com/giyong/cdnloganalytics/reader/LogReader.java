@@ -20,8 +20,8 @@ public class LogReader {
         try (BufferedReader bufferedReader = Files.newBufferedReader(fullPath)) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                //2. LogIngestService.process 호출
-//                logIngestService.process(line, cdnProvider);
+                //2. LogIngestService.ingest 호출
+                logIngestService.ingest(line, cdnProvider);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

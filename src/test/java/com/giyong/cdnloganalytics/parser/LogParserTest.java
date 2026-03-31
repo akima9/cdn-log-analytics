@@ -3,8 +3,6 @@ package com.giyong.cdnloganalytics.parser;
 import com.giyong.cdnloganalytics.dto.ParsedLog;
 import org.junit.jupiter.api.Test;
 
-import java.util.Map;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 abstract class LogParserTest {
