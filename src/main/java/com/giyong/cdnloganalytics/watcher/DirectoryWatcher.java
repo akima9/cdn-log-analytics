@@ -17,10 +17,12 @@ public class DirectoryWatcher {
     private final LogFileProcessor logFileProcessor;
 
     public void watch() {
-        List<String> currentFiles = fileSystemWatcher.pollEvents();
-        List<String> newFiles = fileDetector.detectNewFiles(currentFiles);
-        for (String file : newFiles) {
-            logFileProcessor.accept(file);
+        while (true) {
+            List<String> currentFiles = fileSystemWatcher.pollEvents();
+            List<String> newFiles = fileDetector.detectNewFiles(currentFiles);
+            for (String file : newFiles) {
+                logFileProcessor.accept(file);
+            }
         }
     }
 }
