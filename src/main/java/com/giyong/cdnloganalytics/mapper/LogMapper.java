@@ -2,9 +2,11 @@ package com.giyong.cdnloganalytics.mapper;
 
 import com.giyong.cdnloganalytics.dto.ParsedLog;
 import com.giyong.cdnloganalytics.entity.RawLog;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class LogMapper {
     public RawLog toEntity(ParsedLog parsedLog) {
         return RawLog.builder()

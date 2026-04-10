@@ -25,6 +25,9 @@ public class AwsLogParser implements LogParser {
     }
 
     public ParsedLog parse(String line) {
+        if (line.startsWith("#Version:")) {
+            return null;
+        }
 
         if (line.startsWith("#Fields:")) {
             createFieldIndex(line);

@@ -1,15 +1,21 @@
 package com.giyong.cdnloganalytics.buffer;
 
+import com.giyong.cdnloganalytics.config.LogBufferProperties;
 import com.giyong.cdnloganalytics.dto.ParsedLog;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@RequiredArgsConstructor
+@Component
 public class LogBuffer {
     private final List<ParsedLog> buffer = new ArrayList<>();
     private final int capacity;
+
+    public LogBuffer(LogBufferProperties logBufferProperties) {
+        capacity = logBufferProperties.getSize();
+    }
 
     public boolean add(ParsedLog parsedLog) {
         buffer.add(parsedLog);

@@ -27,7 +27,7 @@ public class LogIngestService {
         //2. parsing
         ParsedLog parsedLog = logParser.parse(line);
         //3. LogBuffer에 담기
-        if (logBuffer.add(parsedLog)) {
+        if (parsedLog != null && logBuffer.add(parsedLog)) {
             List<ParsedLog> parsedLogs = logBuffer.flush();
             List<RawLog> rawLogs = logMapper.toEntities(parsedLogs);
             rawLogRepository.saveAll(rawLogs);
