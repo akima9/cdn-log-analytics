@@ -1,6 +1,7 @@
 package com.giyong.cdnloganalytics.service;
 
 import com.giyong.cdnloganalytics.common.CdnProvider;
+import com.giyong.cdnloganalytics.domain.cdn.CdnProviderResolver;
 import com.giyong.cdnloganalytics.reader.LogReader;
 import com.giyong.cdnloganalytics.reader.LogReaderFactory;
 import org.junit.jupiter.api.Test;
@@ -22,12 +23,13 @@ class LogFileProcessorTest {
         //given
         LogReaderFactory logReaderFactory = mock(LogReaderFactory.class);
         LogReader logReader = mock(LogReader.class);
+        CdnProviderResolver cdnProviderResolver = mock(CdnProviderResolver.class);
 
         when(logReaderFactory.create(any(), any())).thenReturn(logReader);
 
         LogFileProcessor logFileProcessor = new LogFileProcessor(
                 logReaderFactory,
-                CdnProvider.AWS
+                cdnProviderResolver
         );
 
         //when

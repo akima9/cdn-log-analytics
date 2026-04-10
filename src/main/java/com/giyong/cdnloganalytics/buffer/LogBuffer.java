@@ -2,7 +2,6 @@ package com.giyong.cdnloganalytics.buffer;
 
 import com.giyong.cdnloganalytics.config.LogBufferProperties;
 import com.giyong.cdnloganalytics.dto.ParsedLog;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

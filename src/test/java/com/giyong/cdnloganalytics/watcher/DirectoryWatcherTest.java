@@ -4,7 +4,6 @@ import com.giyong.cdnloganalytics.service.LogFileProcessor;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;

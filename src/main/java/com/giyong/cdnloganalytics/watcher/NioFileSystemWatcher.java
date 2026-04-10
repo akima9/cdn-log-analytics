@@ -3,7 +3,6 @@ package com.giyong.cdnloganalytics.watcher;
 import com.giyong.cdnloganalytics.config.LogProperties;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

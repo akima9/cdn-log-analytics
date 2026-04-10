@@ -3,7 +3,6 @@ package com.giyong.cdnloganalytics.reader;
 import com.giyong.cdnloganalytics.common.CdnProvider;
 import com.giyong.cdnloganalytics.service.LogIngestService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
