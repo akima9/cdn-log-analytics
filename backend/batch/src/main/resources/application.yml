@@ -1,0 +1,34 @@
+spring:
+  profiles:
+    active: local
+  application:
+    name: cdn-log-analytics-batch
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/cdn_log_analytics?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    username: ${DB_USERNAME:cdn}
+    password: ${DB_PASSWORD:cdn1234}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 1000
+
+  batch:
+    job:
+      enabled: false  # 시작 시 자동 실행 방지, Scheduler가 트리거
+    jdbc:
+      initialize-schema: never  # Flyway가 스키마 관리
+
+server:
+  port: 8081
+
+cdn:
+  mock:
+    output-dir: /tmp/cdn-mock-logs
+    daily-count: 10000
