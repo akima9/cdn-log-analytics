@@ -129,3 +129,58 @@ Spring Batch의 자동 실행은 `spring.batch.job.enabled: false`로 비활성�
 - **프레임워크**: JUnit5 (`useJUnitPlatform()` 적용됨) + MockK 1.13.13
 - **Spring 통합 테스트**: `@SpringBootTest`, `@DataJpaTest`, `@WebMvcTest` 등 슬라이스 테스트를 상황에 맞게 선택
 - **테스트 위치**: 프로덕션 클래스와 동일한 패키지 구조로 `src/test/kotlin/` 하위에 배치
+
+## 커밋 규칙
+
+### 형식
+
+[Conventional Commits](https://www.conventionalcommits.org/) 규칙을 따릅니다.
+
+```
+type(scope): 한글 제목 (50자 이내)
+
+한글 본문 (선택)
+- 변경 내용을 bullet으로 나열
+```
+
+### type
+
+| type | 용도 |
+|---|---|
+| `feat` | 새 기능 추가 |
+| `fix` | 버그 수정 |
+| `refactor` | 동작 변화 없는 코드 개선 |
+| `test` | 테스트 추가·수정 |
+| `docs` | 문서 변경 |
+| `chore` | 빌드·설정·의존성 변경 |
+
+### scope
+
+모듈명 또는 도메인 영역을 소문자로 표기합니다.
+
+| scope | 해당 영역 |
+|---|---|
+| `batch` | batch 모듈 |
+| `api` | api 모듈 |
+| `core` | core 모듈 |
+| `infra` | DB 마이그레이션, 도커, CI 등 |
+
+### 예시
+
+```
+feat(batch): 집계 Job 구현 (daily_stats, monthly_stats)
+
+cdn_logs를 읽어 daily_stats, monthly_stats를 생성하는
+StatsAggregationJob을 TDD로 구현.
+
+- dailyStatsStep → monthlyStatsStep 순서로 실행
+- 테스트 12개 추가
+```
+
+```
+fix(api): 만료된 RefreshToken 재사용 시 500 대신 401 반환
+```
+
+```
+refactor(core): DailyStats avgBytes 계산 로직을 확장 함수로 분리
+```

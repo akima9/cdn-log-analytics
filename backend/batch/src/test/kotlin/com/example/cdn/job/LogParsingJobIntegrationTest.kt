@@ -11,10 +11,12 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.batch.core.BatchStatus
+import org.springframework.batch.core.Job
 import org.springframework.batch.core.JobParametersBuilder
 import org.springframework.batch.test.JobLauncherTestUtils
 import org.springframework.batch.test.context.SpringBatchTest
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import java.io.File
@@ -27,6 +29,10 @@ class LogParsingJobIntegrationTest {
 
     @Autowired
     private lateinit var jobLauncherTestUtils: JobLauncherTestUtils
+
+    @Autowired
+    @Qualifier("logParsingJob")
+    private lateinit var logParsingJob: Job
 
     @Autowired
     private lateinit var channelRepository: ChannelRepository
@@ -45,6 +51,7 @@ class LogParsingJobIntegrationTest {
 
     @BeforeEach
     fun setUp() {
+        jobLauncherTestUtils.job = logParsingJob
         cdnLogRepository.deleteAll()
         channel = channelRepository.save(Channel(name = "뉴스 채널", code = "NEWS"))
         programRepository.save(Program(channel = channel, name = "아침 뉴스", code = "MORNING_NEWS"))

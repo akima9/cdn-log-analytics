@@ -1,6 +1,7 @@
 package com.example.cdn.domain
 
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.jpa.repository.Query
 
 interface MonthlyStatsRepository : JpaRepository<MonthlyStats, Long> {
@@ -18,4 +19,12 @@ interface MonthlyStatsRepository : JpaRepository<MonthlyStats, Long> {
         endMonth: Int,
         channels: List<Channel>,
     ): List<MonthlyStats>
+
+    @Modifying
+    fun deleteByStatYearAndStatMonthAndChannelAndProgram(
+        statYear: Int,
+        statMonth: Int,
+        channel: Channel,
+        program: Program,
+    )
 }

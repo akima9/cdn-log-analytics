@@ -45,4 +45,18 @@ class ProgramRepositoryTest @Autowired constructor(
         assertThat(found).isNotNull
         assertThat(found!!.name).isEqualTo("아침 뉴스")
     }
+
+    @Test
+    fun `채널로 해당 채널의 프로그램 목록을 조회할 수 있다`() {
+        val channel = channelRepository.save(Channel(name = "뉴스 채널", code = "NEWS"))
+        val other = channelRepository.save(Channel(name = "스포츠 채널", code = "SPORTS"))
+        programRepository.save(Program(channel = channel, name = "아침 뉴스", code = "MORNING_NEWS"))
+        programRepository.save(Program(channel = channel, name = "저녁 뉴스", code = "EVENING_NEWS"))
+        programRepository.save(Program(channel = other, name = "축구", code = "SOCCER"))
+
+        val result = programRepository.findByChannel(channel)
+
+        assertThat(result).hasSize(2)
+        assertThat(result.map { it.code }).containsExactlyInAnyOrder("MORNING_NEWS", "EVENING_NEWS")
+    }
 }

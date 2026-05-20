@@ -40,4 +40,19 @@ class DailyStatsRepositoryTest @Autowired constructor(
             dailyStatsRepository.saveAndFlush(DailyStats(statDate = LocalDate.of(2026, 5, 18), channel = channel, program = program))
         }
     }
+
+    @Test
+    fun `날짜와 채널과 프로그램으로 일별 통계를 삭제할 수 있다`() {
+        val channel = channelRepository.save(Channel(name = "뉴스 채널", code = "NEWS"))
+        val program = programRepository.save(Program(channel = channel, name = "아침 뉴스", code = "MORNING_NEWS"))
+        val other = programRepository.save(Program(channel = channel, name = "저녁 뉴스", code = "EVENING_NEWS"))
+        val statDate = LocalDate.of(2026, 5, 18)
+        dailyStatsRepository.save(DailyStats(statDate = statDate, channel = channel, program = program))
+        dailyStatsRepository.save(DailyStats(statDate = statDate, channel = channel, program = other))
+
+        dailyStatsRepository.deleteByStatDateAndChannelAndProgram(statDate, channel, program)
+        dailyStatsRepository.flush()
+
+        assertThat(dailyStatsRepository.count()).isEqualTo(1)
+    }
 }
